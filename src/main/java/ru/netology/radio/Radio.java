@@ -2,8 +2,17 @@ package ru.netology.radio;
 
 public class Radio {
 
-    private int currentStation;
-    private int currentVolume;
+    protected int currentStation;
+    protected int currentVolume;
+    protected int maxStation;
+
+    public Radio() {
+        maxStation = 9;
+    }
+
+    public Radio(int stationsCount) {
+        maxStation = stationsCount - 1;
+    }
 
     public int getCurrentStation() {
         return currentStation;
@@ -15,9 +24,9 @@ public class Radio {
 
     public int setCurrentStation(int newCurrentStation) {
         if (newCurrentStation < 0) {
-            return 9;
+            return maxStation;
         }
-        if (newCurrentStation > 9) {
+        if (newCurrentStation > maxStation) {
             return 0;
         }
         currentStation = newCurrentStation;
@@ -28,22 +37,22 @@ public class Radio {
         if (newCurrentVolume < 0) {
             return 0;
         }
-        if (newCurrentVolume > 10) {
-            return 10;
+        if (newCurrentVolume > 100) {
+            return 100;
         }
         currentVolume = newCurrentVolume;
         return newCurrentVolume;
     }
 
-    public void incrementVolume() {
-        if (currentVolume < 10) {
+    public void increaseVolume() {
+        if (currentVolume < 100) {
             currentVolume++;
         } else {
-            currentVolume = 10;
+            currentVolume = 100;
         }
     }
 
-    public void reduceVolume() {
+    public void decreaseVolume() {
         if (currentVolume > 0) {
             currentVolume--;
         } else {
@@ -52,7 +61,7 @@ public class Radio {
     }
 
     public void nextStation() {
-        if (currentStation < 9) {
+        if (currentStation < maxStation) {
             currentStation++;
         } else {
             currentStation = 0;
@@ -63,7 +72,9 @@ public class Radio {
         if (currentStation > 0) {
             currentStation--;
         } else {
-            currentStation = 9;
+            currentStation = maxStation;
         }
     }
+
+
 }
